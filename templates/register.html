@@ -8,16 +8,24 @@
    
   <div class="login">
 
+    <h2> Registration</h2>
+
     <div class="container">
-      <form method="POST" action="/login">
-      Username/email address: <input type="text" name="uname" class="input-field"><br>
-      Password: <input type="password" name="password" class="input-field"><br>
+
+    <form action="/registration" method="POST">
+     
+      <strong>Username *</strong> <input type="text" name="username" class="input-field"><br>
+      <strong>Email address *</strong> <input type="text" name="email" class="input-field"><br>
+      <strong>Password *</strong> <input type="password" name="password" class="input-field"><br>
+      <strong>Retype Password *</strong> <input type="password" name="retype" class="input-field"><br>
+
       <br>
 
-      <button type="submit">Login</button>
+      <button type="submit">Register</button>
+
     </form>
-      <br>
-      <a href="/home/register.html">New User? Register Here</a>
+     <br>
+    
     </div>
 
     
@@ -25,7 +33,7 @@
         
         
    </div>
-  
+    
 
    
 

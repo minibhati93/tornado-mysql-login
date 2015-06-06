@@ -20,7 +20,8 @@ class Application(tornado.web.Application):
         handlers = [
             (r"/", HomeHandler),
             (r"/home/(.*)",WebHandler),
-            (r"/login",UserLoginHandler)
+            (r"/login",UserLoginHandler),
+            (r"/registration",RegistrationHandler)
         ]
         settings = dict(
             app_title=u"Recipe Planner",
@@ -68,7 +69,7 @@ class WebHandler(BaseHandler):
         print "rendering ",page
         self.render(page)
 
-class UserRegisterHandler(BaseHandler):
+class RegistrationHandler(BaseHandler):
     def post(self):
         print "sending data to database"
         username = self.get_argument('username')
@@ -77,35 +78,32 @@ class UserRegisterHandler(BaseHandler):
         print "username ",username
         print "email ", email
         print "password ",password
-        uname = self.db.query("SELECT * FROM users WHERE username = %s",username)
+        uname = self.db.query("SELECT * FROM users WHERE name = %s",username)
         if not uname:
-            self.db.execute("INSERT INTO users (username,email,password)" " VALUES (%s,%s,%s)",username, email, password)
+            self.db.execute("INSERT INTO users (name,email,password)" " VALUES (%s,%s,%s)",username, email, password)
             logging.info("inserted successfully")
             self.set_current_user(username)
+            self.write("Registration successful")
         else:
             logging.info("User already exists.Log in to continue")
             self.write("User already exists.Log in to continue")
-            self.redirect("/home/log-in.html")
+            self.redirect("/web/log-in.html")
 
 class UserLoginHandler(BaseHandler):
     def post(self):
-        email = self.get_argument('email')
-        password = self.get_argument('pwd')
+        email = self.get_argument('uname')
+        password = self.get_argument('password')
         print "email ",email
         print "password ",password
-        pwd = self.db.query("SELECT password FROM users WHERE email = %s",email)
-        if not pwd:
+        query = self.db.query("SELECT password FROM users WHERE name = %s or email = %s",email,email)
+        if not query:
             #self.db.execute("INSERT INTO users (username,email,password)" " VALUES (%s,%s,%s)",username, email, password)
             logging.info("user not present")
             #self.set_current_user(username)
             self.redirect("/home/register.html")
         else:
-            logging.info(pwd)
-            #if pwd == password:
-            #    logging.info("authentication successfull")
-            #else:
-            #    logging.info("authentication failed.")
-            #    self.redirect("/home/log-in.html")
+            logging.info("done")
+            self.write("Log in successful")
 
 def main():
     tornado.options.parse_command_line()
