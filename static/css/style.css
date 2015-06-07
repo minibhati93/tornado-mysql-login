@@ -57,17 +57,17 @@
 }
 
 
-.nav-btn a{
+.header a{
     color: white;
     letter-spacing: 1px;
 
 
 }
-.nav-btn a:hover{
+.header a:hover{
     color: #18BC9C;
 
 }
-.nav-btn a:link {
+.header a:link {
    text-transform: uppercase;
    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
    font-weight: 700;

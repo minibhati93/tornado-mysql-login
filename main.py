@@ -92,22 +92,31 @@ class RegistrationHandler(BaseHandler):
 
 class UserLoginHandler(BaseHandler):
     def post(self):
-        email = self.get_argument('uname')
-        password = self.get_argument('password')
-        print "email ",email
-        print "password ",password
-        query = self.db.query("SELECT password FROM users WHERE name = %s or email = %s",email,email)
-        if not query:
-            #self.db.execute("INSERT INTO users (username,email,password)" " VALUES (%s,%s,%s)",username, email, password)
-            logging.info("user not present")
-            #self.set_current_user(username)
-            self.redirect("/home/register.html")
+        oauth = self.get_argument('oauth')
+        if oauth == "yes":
+            print "oauth, login"
+            email = self.get_argument('email')
+            # argument = {}
+            # argument['user'] = email
+            print "email",email
+            argument = email
+            self.finish(dict(argument=argument))
+            #self.render("profile.html",argument=argument)
+            return
         else:
-            logging.info("done")
-            #self.write("Log in successful")
-            argument = {}
-            argument['user'] = email
-            self.render("profile.html",argument=argument)
+            email = self.get_argument('uname')
+            password = self.get_argument('password')
+            print "email ",email
+            print "password ",password
+            query = self.db.query("SELECT password FROM users WHERE name = %s or email = %s",email,email)
+            if not query:
+                logging.info("user not present")
+                #self.set_current_user(username)
+                self.redirect("/home/register.html")
+            else:
+                logging.info("done")
+                argument = email
+                self.render("profile.html",argument=argument)
 
 class LogoutHandler(BaseHandler):
     def get(self):

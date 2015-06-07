@@ -4,20 +4,40 @@
 {% module Template("head.html") %}
 
 <body>
+  {% module Template("navbar.html") %}
 
    
   <div class="login">
 
+    
+     <p>Sign in</p>
+      <p>Don't have an account? <a class="register-btn" href="/home/register.html">Register!</a></p><br>
+
+
+
     <div class="container">
-      <form method="POST" action="/login">
-      Username/email address: <input type="text" name="uname" class="input-field"><br>
-      Password: <input type="password" name="password" class="input-field"><br>
+        <span id="signinButton">
+        <span
+          class="g-signin"
+          data-callback="signinCallback"
+          data-clientid="129939593061-59aiie7r31nduh07pmheknjfd3187fuc.apps.googleusercontent.com"
+          data-cookiepolicy="single_host_origin"
+          data-requestvisibleactions="http://schema.org/AddAction"
+          data-scope="https://www.googleapis.com/auth/plus.profile.emails.read">
+        </span>
+      </span>
+
+    <h4 id="orDiv"> - OR - </h4>
+
+    <form method="POST" action="/login">
+      <strong>Username/Email address: </strong><input type="text" name="uname" class="input-field"><br>
+      <strong>Password: </strong><input type="password" name="password" class="input-field"><br>
+      <input type="text" name="oauth" value="no" style="display:none"><br>
       <br>
 
-      <button type="submit">Login</button>
+      <button type="submit" style="width: 100%;padding: 10px; background-color: #5cb85c; color: #fff;border-radius: 4px; font-size:14px;border-color: #4cae4c; cursor: pointer;">Login</button>
     </form>
-      <br>
-      <a href="/home/register.html">New User? Register Here</a>
+
     </div>
 
     
@@ -41,8 +61,11 @@ body{
 @media only screen and (min-width:768px) and (max-width: 50000px) {
         .login {
             width: 500px;
-            margin: 0 auto;
+            margin-top: 150px;
             background: #fff;
+        }
+        .login p,h4 {
+            text-align: center;
         }
  
 }
@@ -51,13 +74,55 @@ body{
         
         .login {
             width: 300px;
-            margin: 0 auto;
+            margin-top: 150px;
             background: #fff;
+        }
+
+        .login p,h4 {
+            text-align: center;
         }
 
         
          
 }
+p {
+  margin: 0 0 10px;
+  text-align: center;
+}
 
+.register-btn{
+  text-decoration:none;
+  color: rgb(51,122,185) ; 
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+
+}
+.register-btn:hover{
+  text-decoration: underline;
+}
+
+.container{
+  padding: 20px;
+}
+#signinButton{
+   margin-left: 170px;
+  
+}
+
+.input-field{
+  display: block;
+  width: 100%;
+  /* height: 34px; */
+  padding: 6px 0px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+ 
 </style>
 </html>
