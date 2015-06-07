@@ -21,7 +21,8 @@ class Application(tornado.web.Application):
             (r"/", HomeHandler),
             (r"/home/(.*)",WebHandler),
             (r"/login",UserLoginHandler),
-            (r"/registration",RegistrationHandler)
+            (r"/registration",RegistrationHandler),
+            (r"/logout",LogoutHandler)
         ]
         settings = dict(
             app_title=u"Recipe Planner",
@@ -87,7 +88,7 @@ class RegistrationHandler(BaseHandler):
         else:
             logging.info("User already exists.Log in to continue")
             self.write("User already exists.Log in to continue")
-            self.redirect("/web/log-in.html")
+            self.redirect("/home/log-in.html")
 
 class UserLoginHandler(BaseHandler):
     def post(self):
@@ -103,7 +104,17 @@ class UserLoginHandler(BaseHandler):
             self.redirect("/home/register.html")
         else:
             logging.info("done")
-            self.write("Log in successful")
+            #self.write("Log in successful")
+            argument = {}
+            argument['user'] = email
+            self.render("profile.html",argument=argument)
+
+class LogoutHandler(BaseHandler):
+    def get(self):
+        self.clear_cookie("user")
+        print "logout successful"
+        self.redirect("/home/log-in.html")
+        
 
 def main():
     tornado.options.parse_command_line()
