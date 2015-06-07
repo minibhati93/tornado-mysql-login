@@ -1,2 +1,2 @@
 # Tornado-Mysql-Login
-Simple responsive login form
+Simple implementation of login and registration
