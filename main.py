@@ -29,7 +29,7 @@ class Application(tornado.web.Application):
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             #xsrf_cookies=False,
-            cookie_secret="11oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
+            cookie_secret="11oETzKXQAGaYdkL5gEmGeFJJuYh7EQnp2XdTP1o/Vo=",
             login_url="/"            
         )
         tornado.web.Application.__init__(self, handlers, **settings)
@@ -58,7 +58,7 @@ class BaseHandler(tornado.web.RequestHandler):
 
 class HomeHandler(BaseHandler):
     def get(self):
-        print "website started"
+        print "loading started"
         self.render("index.html")
 
 
